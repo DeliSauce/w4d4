@@ -1,0 +1,25 @@
+<h1> Create a new album listing </h1>
+
+
+<form action=" <%=  %> " method="post">
+
+<!-- drop down for band name -->
+  <label for="band">Band Name</label>
+  <select name="album[band_id]" id="band">
+    <% Band.all.each do |band| %>
+      <option value="<%= band.id %>" <%= "selected" if album.band_id == band.id %> >
+        <%= band.name %>
+      </option>
+    <% end %>
+  </select>
+
+<!-- radio buttons for live or studio album -->
+  <label for="live">Live</label>
+  <input type="radio" name="album[live]" id="live" <%= "checked" if album.live%> >
+
+  <label for="studio">Studio</label>
+  <input type="radio" name="album[live]" id="studio" <%= "checked" unless album.live%> >
+
+  <input type="submit" value="submit album">
+
+</form>
