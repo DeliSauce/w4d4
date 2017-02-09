@@ -1,27 +1,9 @@
 class BandsController < ApplicationController
   before_action :require_user!
 
-  # GET /bands
-  def index
-    @bands = Band.all
-    render :index
-  end
-
-  # GET /bands/1
-  def show
-    @band = Band.find_by(id: params[:id])
-    render :show
-  end
-
-  # GET /bands/new
-  def new
-    @band = Band.new
-    render :new
-  end
-
-  # POST /bands
   def create
     @band = Band.new(band_params)
+
     if @band.save
       redirect_to band_url(@band)
     else
@@ -30,13 +12,32 @@ class BandsController < ApplicationController
     end
   end
 
-  # GET /bands/1/edit
+  def destroy
+    @band = Band.find(params[:id])
+    @band.destroy
+    redirect_to bands_url
+  end
+
   def edit
     @band = Band.find(params[:id])
     render :edit
   end
 
-  # PATCH/PUT /bands/1
+  def index
+    @bands = Band.all
+    render :index
+  end
+
+  def new
+    @band = Band.new
+    render :new
+  end
+
+  def show
+    @band = Band.find(params[:id])
+    render :show
+  end
+
   def update
     @band = Band.find(params[:id])
     if @band.update(band_params)
@@ -47,14 +48,7 @@ class BandsController < ApplicationController
     end
   end
 
-  # DELETE /bands/1
-  def destroy
-    @band.destroy
-
-  end
-
   private
-  # Never trust parameters from the scary internet, only allow the white list through.
   def band_params
     params.require(:band).permit(:name)
   end

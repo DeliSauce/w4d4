@@ -1,5 +1,6 @@
 class AlbumsController < ApplicationController
-
+  before_action :require_user!
+  
   def index
     @albums = Album.all
     render :index
